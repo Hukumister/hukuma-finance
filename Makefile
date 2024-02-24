@@ -1,8 +1,7 @@
-MAIN_PACKAGE_PATH := ./cmd/server
 BINARY_NAME := server
 
 build:
-	go build -o=/tmp/bin/${BINARY_NAME} ${MAIN_PACKAGE_PATH}
+	go build -o=/tmp/bin/${BINARY_NAME} .
 
 clean:
 	rm -f /tmp/bin/${BINARY_NAME}

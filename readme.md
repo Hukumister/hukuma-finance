@@ -7,3 +7,5 @@
 ```shell 
 make run
 ```
+
+После запуска сервера, swagger будет доступен по пути http://localhost:8080/swagger/index.html

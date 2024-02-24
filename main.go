@@ -9,24 +9,26 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/gin-gonic/gin"
+	"github.com/hukuma-finance/internal/api"
 )
 
-func main() {
-	router := gin.Default()
-	router.LoadHTMLFiles("web/index.html")
-	router.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "index.html", nil)
-	})
+func init() {
 
-	srv := &http.Server{
+}
+
+// @title Hukuma Finance API
+// @version 1.0
+func main() {
+	routersInit := api.InitRouter()
+
+	server := &http.Server{
 		Addr:    ":8080",
-		Handler: router,
+		Handler: routersInit,
 	}
 
 	go func() {
 		// service connections
-		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("listen: %s\n", err)
 		}
 	}()
@@ -40,7 +42,7 @@ func main() {
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
-	if err := srv.Shutdown(ctx); err != nil {
+	if err := server.Shutdown(ctx); err != nil {
 		log.Fatal("Server Shutdown:", err)
 	}
 	select {

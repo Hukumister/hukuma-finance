@@ -1,0 +1,35 @@
+definitions:
+  model.Curency:
+    properties:
+      logo:
+        type: string
+      tiker:
+        type: string
+    type: object
+  model.Result:
+    properties:
+      data: {}
+    type: object
+info:
+  contact: {}
+  title: Hukuma Finance API
+  version: "1.0"
+paths:
+  /api/v1/currencies/:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/model.Result'
+            - properties:
+                data:
+                  items:
+                    $ref: '#/definitions/model.Curency'
+                  type: array
+              type: object
+      summary: Get all currencies
+swagger: "2.0"
